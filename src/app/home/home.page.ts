@@ -2,20 +2,26 @@ import {Component, OnInit} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
 import {ImageService} from '../services/image.service';
+import {FormsModule} from '@angular/forms';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonicModule, FormsModule, NgIf],
 })
 export class HomePage implements OnInit {
   selectedFile: File = new File([], '');
+  fileName: string = '';
+  imageData: SafeUrl = '';
 
   constructor(
     private http: HttpClient,
-    private imageService: ImageService,
+    public imageService: ImageService,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -58,5 +64,13 @@ export class HomePage implements OnInit {
     }
   }
 
+  retrieveImage(): void {
+    this.imageService.retrieveImage(this.fileName).subscribe(data => {
+      const imageUrl = URL.createObjectURL(new Blob([data], {type: 'image/png'}));
+      this.imageData = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+    }, error => {
+      console.log(error);
+    });
+  }
 
 }

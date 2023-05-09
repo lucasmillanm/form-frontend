@@ -15,5 +15,6 @@
 
   <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
   <ion-button type="button" (click)="onUpLoad()">Upload</ion-button>
-
+  <ion-input type="text" [(ngModel)]="fileName"></ion-input>
+  <img *ngIf="fileName" [src]="'http://localhost:8080/image/' + fileName" alt="Image">
 </ion-content>
