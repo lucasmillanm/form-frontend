@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {FormService} from '../services/form.service';
+import {Form} from '../models/form';
+import {UniFunctionsService} from '../services/uni-functions.service';
 
 @Component({
   selector: 'app-personal-card',
@@ -10,11 +13,21 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class PersonalCardPage implements OnInit {
+export class PersonalCardPage {
 
-  constructor() { }
+  id: number = 0;
+  fileName: string = '';
+  form?: Form;
 
-  ngOnInit() {
+  constructor(
+    private formService: FormService,
+    public uniFunctions: UniFunctionsService
+  ) {
   }
 
+  getFormByID(id: number): void {
+    this.formService.getForm(id).subscribe(data => {
+      this.form = data;
+    });
+  }
 }

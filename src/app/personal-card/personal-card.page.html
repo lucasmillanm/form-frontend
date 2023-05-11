@@ -1,13 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>personal-card</ion-title>
+    <ion-title>
+      Personal Card
+    </ion-title>
+    <ion-button class="toolbar-button" color="dark" slot="end" (click)="uniFunctions.goToSubmitForm()">Submit Form</ion-button>
+    <ion-button class="toolbar-button" color="dark" slot="end">Get Form</ion-button>
+    <ion-button class="toolbar-button" color="dark" slot="end" (click)="uniFunctions.goToEdit()">Edit</ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="ion-padding" [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">personal-card</ion-title>
+      <ion-title size="large">Personal Card</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-input type="number" placeholder="For example: 1" [(ngModel)]="id"></ion-input>
+  <ion-button class="full-width" color="success" (click)="getFormByID(id)">Search for Form</ion-button>
+  <ion-card *ngIf="form" class="ion-text-center">
+    <ion-card-header class="ion-align-items-center">
+      <img *ngIf="id != 0" [src]="'http://localhost:8080/image/' + form.imageName" alt="Image">
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-title>{{form.fullName}}, {{form.age}} years old</ion-card-title>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

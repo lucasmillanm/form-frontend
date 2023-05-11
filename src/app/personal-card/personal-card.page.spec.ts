@@ -5,12 +5,6 @@ describe('PersonalCardPage', () => {
   let component: PersonalCardPage;
   let fixture: ComponentFixture<PersonalCardPage>;
 
-  beforeEach(async(() => {
-    fixture = TestBed.createComponent(PersonalCardPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
